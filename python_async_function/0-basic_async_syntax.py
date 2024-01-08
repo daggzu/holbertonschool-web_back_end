@@ -1,19 +1,18 @@
 #!/usr/bin/env python3
 """
-Module defines an async_generator coroutine that takes no arguments and
-loops 10 times, each time asynchronously wait 1 second, then yield a random
-number between 0 and 10.
+Module defines a basic async function that waits for a random delay
+between 0 and max_delay(limited wait time) seconds and eventually
+returns it.
 """
 import asyncio
 import random
-from typing import Generator
 
 
-async def async_generator() -> Generator[float, None, None]:
+async def wait_random(max_delay: int = 10) -> float:
     """
-    Loops 10 times, each time asynchronously wait 1 second, then yield a random
-    number between 0 and 10.
+    Waits for a random delay between 0 and max_delay seconds and
+    eventually returns it.
     """
-    for _ in range(10):
-        await asyncio.sleep(1)
-        yield random.uniform(0, 10)
+    delay = random.uniform(0, max_delay)  # Random delay
+    await asyncio.sleep(delay)  # Wait for the random delay
+    return delay
